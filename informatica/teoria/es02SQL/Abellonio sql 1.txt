@@ -1,0 +1,43 @@
+*CREAZIONE TABELLE*
+CREATE TABLE [dbo].[Aereo] (
+    [TipoAereo]      VARCHAR (32) NOT NULL,
+    [NumPasseggieri] INT          NOT NULL,
+    [Qtamerci]       INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([TipoAereo] ASC)
+);
+
+CREATE TABLE [dbo].[Volo] (
+    [IdVolo]     VARCHAR (32) NOT NULL,
+    [GiornoSett] INT          NOT NULL,
+    [CittaPart]  VARCHAR (32) NOT NULL,
+    [OraPart]    DATETIME     NOT NULL,
+    [CittaArr]   VARCHAR (32) NOT NULL,
+    [OraArr]     DATETIME     NOT NULL,
+    [TipoAereo]  VARCHAR (32) NOT NULL,
+    PRIMARY KEY CLUSTERED ([IdVolo] ASC),
+    CONSTRAINT [FK_CittaArr] FOREIGN KEY ([CittaArr]) REFERENCES [dbo].[Aereoporto] ([Citta]),
+    CONSTRAINT [FK_CittaPart] FOREIGN KEY ([CittaPart]) REFERENCES [dbo].[Aereoporto] ([Citta]),
+    CONSTRAINT [FK_TipoAereoAereo] FOREIGN KEY ([TipoAereo]) REFERENCES [dbo].[Aereo] ([TipoAereo])
+);
+
+CREATE TABLE [dbo].[Aereoporto] (
+    [Citta]    VARCHAR (32) NOT NULL,
+    [Nazione]  VARCHAR (32) NOT NULL,
+    [Numpiste] INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([Citta] ASC)
+);
+
+*QUERY*
+
+SELECT CittaPart
+FROM Volo
+WHERE CittaArr = 'Roma'
+ORDER BY CittaPart ASC
+
+SELECT Citta
+FROM Aeroporto
+WHERE NumPiste IS NULL
+
+SELECT *
+FROM Aereo, Volo
+WHERE Aereo.NumPasseggeri IS NOT NULL AND Aereo.QtaMerci IS NOT NULL

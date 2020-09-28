@@ -1,0 +1,166 @@
+*CREAZIONE TABELLE*
+CREATE TABLE [dbo].[Attori] (
+    [CodAttore]   INT          IDENTITY (1, 1) NOT NULL,
+    [Nome]        VARCHAR (32) NOT NULL,
+    [AnnoNascita] INT     NOT NULL,
+    [Nazionalita] VARCHAR (32) NOT NULL,
+    PRIMARY KEY CLUSTERED ([CodAttore] ASC)
+);
+
+CREATE TABLE [dbo].[Film] (
+    [CodFilm]        INT          IDENTITY (1, 1) NOT NULL,
+    [Titolo]         VARCHAR (32) NOT NULL,
+    [AnnoProduzione] INT          NOT NULL,
+    [Nazionalita]    VARCHAR (32) NOT NULL,
+    [Regista]        VARCHAR (32) NOT NULL,
+    [Genere]         VARCHAR (32) NOT NULL,
+    [Durata]         INT          NOT NULL,
+    PRIMARY KEY CLUSTERED ([CodFilm] ASC)
+);
+
+CREATE TABLE [dbo].[Proiezioni] (
+    [CodProiezione]  INT          IDENTITY (1, 1) NOT NULL,
+    [CodFilm]        INT          NOT NULL,
+    [CodSala]        INT          NOT NULL,
+    [Incasso]        INT          NOT NULL,
+    [DataProiezione] DATE 	  NOT NULL,
+    PRIMARY KEY CLUSTERED ([CodProiezione] ASC),
+    FOREIGN KEY ([CodSala]) REFERENCES [dbo].[Sale] ([CodSala]),
+    FOREIGN KEY ([CodFilm]) REFERENCES [dbo].[Film] ([CodFilm])
+);
+
+CREATE TABLE [dbo].[Recita] (
+    [CodAttore] INT NOT NULL,
+    [CodFilm]   INT NOT NULL,
+    FOREIGN KEY ([CodAttore]) REFERENCES [dbo].[Attori] ([CodAttore]),
+    FOREIGN KEY ([CodFilm]) REFERENCES [dbo].[Film] ([CodFilm])
+);
+
+CREATE TABLE [dbo].[Sale] (
+    [CodSala] INT          IDENTITY (1, 1) NOT NULL,
+    [Posti]   INT          NOT NULL,
+    [Nome]    VARCHAR (32) NOT NULL,
+    [Citta]   VARCHAR (32) NOT NULL,
+    PRIMARY KEY CLUSTERED ([CodSala] ASC)
+);
+
+*QUERY*
+1) SELECT Nome 
+FROM Sale 
+WHERE Citta = 'Pisa'
+
+2) SELECT Titolo 
+FROM Film 
+WHERE Regista = 'F. Fellini' 
+AND AnnoProduzione > 1960
+
+3) SELECT Titolo, Durata 
+FROM Film 
+WHERE Genere = 'Fantascienza' 
+AND AnnoProduzione > 1960 
+AND (Nazionalita = 'Francese' OR Nazionalita = 'Giapponese')
+
+4) SELECT Titolo 
+FROM Film 
+WHERE (Genere = 'Fantascienza' AND Nazionalita = 'Giapponese' AND AnnoProduzione > 1960)
+OR Nazionalita = 'Francese'
+
+5) SELECT Titolo 
+FROM Film 
+WHERE Regista = (SELECT Regista FROM Film WHERE Titolo = 'Casablanca')
+
+6) SELECT Titolo, Genere 
+FROM Film f, Proiezioni p 
+WHERE p.CodFilm = f.CodFilm 
+AND p.DataProiezione = CAST(2004-12-25 AS DATE)
+
+7) SELECT DISTINCT Titolo, Genere 
+FROM Film f, Proiezioni p, Sale s 
+WHERE p.CodFilm = f.CodFilm 
+AND p.DataProiezione = CAST(25-12-2004 AS DATE) 
+AND p.CodSala = s.CodSala 
+AND s.Citta = 'Napoli'
+
+8) SELECT DISTINCT s.Nome
+FROM Film f, Proiezioni p, Sale s, Attori a, Recita r
+WHERE p.DataProiezione = CAST('2004-12-25' AS date)
+AND f.CodFilm=r.CodFilm
+AND f.CodFilm= p.CodFilm
+AND p.CodSala=s.CodSala
+AND a.CodAttore=r.CodAttore
+AND a.Nome='R.Williams'
+AND s.Citta='Napoli'
+
+9) SELECT f.Titolo
+FROM Film f, Attori a, Recita r
+WHERE (a.Nome='Mastroianni' OR a.Nome='Loren')
+AND r.CodFilm=f.CodFilm
+AND r.CodAttore=a.CodAttore
+
+10) SELECT f.Titolo
+FROM Film f, Attori a, Recita r
+WHERE Nome='Mastroianni'
+AND r.CodAttore=a.CodAttore
+AND r.CodFilm=f.CodFilm
+AND f.CodFilm 
+IN (SELECT r.CodFilm FROM Attori a, Recita r WHERE r.CodAttore=a.CodAttore AND Nome='Loren')
+
+11) SELECT f.Titolo, a.Nome
+FROM Film f, Attori a, Recita r
+WHERE a.Nazionalita='Francese'
+AND r.CodFilm=f.CodFilm
+AND r.CodAttore=a.CodAttore
+
+12) SELECT f.Titolo, s.Nome
+FROM Film f, Sale s, Proiezioni p
+WHERE s.Citta='Pisa'
+AND s.CodSala=p.CodSala
+AND f.CodFilm=p.CodFilm
+AND right(convert(varchar, p.DataProiezione, 106), 7)='/1/2005'
+
+13) SELECT COUNT(Nome)
+FROM Sale
+WHERE Posti>60 AND Citta='Pisa'
+
+14) SELECT SUM(Posti)
+FROM Sale
+WHERE Citta='Pisa'
+
+15) SELECT COUNT(Nome) as Numerosale, Citta
+FROM Sale
+GROUP BY Sale.Citta
+
+16) SELECT s.Citta, count(*) as Numero_sale
+FROM Sale s
+WHERE s.Posti>60
+GROUP BY s.Citta
+
+17) SELECT *, count(*) as Numero_film
+FROM Film f
+WHERE f.AnnoProduzione>1990
+GROUP BY f.Regista
+
+18) SELECT f.Regista, sum(p.Incasso) as Totale_incasso
+FROM Film f, Proiezioni p,
+WHERE f.CodFilm=p.CodFilm
+GROUP BY f.regista
+
+19) SELECT f.Titolo, count(*) as NumeroProiezioni, sum(p.Incasso) as Incasso
+FROM Film f, Proiezioni p, Sale s,
+WHERE f.CodFilm=p.CodFilm
+AND s.CodSala=p.CodSala
+AND s.Citta='Pisa'
+AND f.Regista='Spielberg'
+GROUP BY f.CodFilm, f.Titolo
+
+20) SELECT f.Regista, a.Nome, count(*) as NumeroFilm
+FROM Film f, Attori a, Recita r
+WHERE r.CodFilm=f.CodFilm
+AND r.CodAttore=r.CodAttore
+GROUP BY f.Regista, a.CodAttore, a.Nome
+
+21) SELECT f.Regista, f.Titolo
+FROM Film f, Recita r
+WHERE r.CodFilm=f.CodFilm
+GROUP BY f.CodFilm, f.Regista, f.Titolo
+HAVING count(*)<6
