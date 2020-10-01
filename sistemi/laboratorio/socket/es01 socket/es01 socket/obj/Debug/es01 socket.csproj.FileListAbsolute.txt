@@ -1,0 +1,10 @@
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\bin\Debug\es01 socket.exe.config
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\bin\Debug\es01 socket.exe
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\bin\Debug\es01 socket.pdb
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01 socket.csprojAssemblyReference.cache
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01_socket.Form1.resources
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01_socket.Properties.Resources.resources
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01 socket.csproj.GenerateResource.cache
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01 socket.csproj.CoreCompileInputs.cache
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01 socket.exe
+C:\Users\andre\Desktop\5Quinta\sistemi\laboratorio\socket\es01 socket\es01 socket\obj\Debug\es01 socket.pdb

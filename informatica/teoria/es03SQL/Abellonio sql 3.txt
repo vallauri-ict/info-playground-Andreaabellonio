@@ -164,3 +164,81 @@ FROM Film f, Recita r
 WHERE r.CodFilm=f.CodFilm
 GROUP BY f.CodFilm, f.Regista, f.Titolo
 HAVING count(*)<6
+
+22) SELECT f.CodFilm, f.Titolo, SUM(p.Incasso) as SommaIncassi
+FROM Film f, Proiezioni p
+WHERE f.CodFilm=p.CodFilm
+AND f.AnnoProduzione>2000
+GROUP BY f.CodFilm, f.Titolo
+
+23) SELECT COUNT(*) as NumeroAttori
+FROM Attori a, Recita r
+WHERE a.CodAttore=r.CodAttore
+AND a.AnnoNascita<1970
+GROUP BY r.CodFilm
+
+24) SELECT f.Titolo, SUM(p.Incasso) as SommaIncassi
+FROM Film f, Proiezioni p
+WHERE f.CodFilm=p.CodFilm
+AND f.Genere='Fantascienza'
+GROUP BY p.CodFilm, f.Titolo
+
+25) SELECT f.Titolo, SUM(p.Incasso) as SommaIncassi
+FROM Film f, Proiezioni p
+WHERE f.CodFilm=p.CodFilm
+AND f.Genere='Fantascienza'
+AND right(convert(varchar, p.DataProiezione, 106), 8)>'01/01/2001'
+GROUP BY p.CodFilm, f.Titolo
+
+26) SELECT f.Titolo, SUM(p.Incasso) as SommaIncassi
+FROM Film f, Proiezioni p
+WHERE f.CodFilm=p.CodFilm
+AND f.Genere='Fantascienza'
+GROUP BY f.CodFilm, f.Titolo
+HAVING MIN(p.DataProiezione)>=CAST('2001-01-01' as DATE) /*la prima data di proiezione deve essere maggiore del 1/1/1*/
+
+27) 
+
+28) 
+
+29) 
+
+30) SELECT f.Titolo 
+FROM Film f 
+WHERE Not exists 
+(SELECT * FROM Proiezioni p 
+WHERE f.CodFilm=p.CodFilm 
+AND p.Incasso>500)
+
+30) SELECT f.Titolo 
+FROM Film f 
+WHERE 500>= All(SELECT p.Incasso FROM Proiezioni p 
+WHERE p.CodFilm=f.CodFilm)
+
+31) SELECT f.Titolo
+FROM Film f
+WHERE Not exists (SELECT * FROM Proiezioni p 
+WHERE p.Incasso<=500 
+AND p.CodFilm=f.CodFilm)
+
+32) SELECT a.Nome
+FROM Attori a
+WHERE a.Nazionalita='ITA'
+AND Not exists(SELECT * FROM Film f, Recita r 
+WHERE f.CodFilm=r.CodFilm 
+AND a.CodAttore=r.CodAttore 
+AND f.Regista='Fellini')
+
+33) SELECT f.Titolo
+FROM Film f
+WHERE f.Regista='Fellini'
+AND Not exists(SELECT * FROM Attori a, Recita r 
+WHERE a.CodAttore=r.CodAttore 
+AND f.CodFilm=r.CodFilm 
+AND a.Nazionalita='ITA')
+
+34) 
+
+35) 
+
+36) 

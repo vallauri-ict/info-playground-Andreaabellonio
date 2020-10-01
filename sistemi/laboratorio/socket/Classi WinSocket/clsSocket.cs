@@ -101,23 +101,24 @@ namespace Esercizio_Socket
             // Avvio il Thread
             threadAscolta.Start();
 
-            // Aspetto finchè il Theard nonè avviato
+            // Aspetto finchè il Theard non è avviato
             while (!(threadAscolta.IsAlive));
 
+			//condizione di controllo per sicurezza
             if (threadAscolta == null)
             {
                 // Avvio il Thread
                 threadAscolta.Start();
 
-                // Aspetto finchè il Theard nonè avviato
-                while (!(threadAscolta.IsAlive)) ;
+                // Aspetto finchè il Theard non è avviato
+                while (!(threadAscolta.IsAlive));
             }
             else if (threadAscolta.ThreadState == ThreadState.SuspendRequested)
                 threadAscolta.Resume();
         }
 
         /***************************************************************/
-        /* Arresta il Thread con la procedura di Asolto (serverRicevi) */
+        /* Arresta il Thread con la procedura di Ascolto (serverRicevi) */
         /***************************************************************/
         public void arrestaServer()
         {
@@ -172,7 +173,7 @@ namespace Esercizio_Socket
             bufferTX = Encoding.ASCII.GetBytes(strMsg);
 
             // Invio il Buffer al Binary
-            socketID.SendTo(bufferTX, bufferTX.Length,0,binary);
+            socketID.SendTo(bufferTX, bufferTX.Length, 0, binary);
 
         }
 
