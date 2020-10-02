@@ -13,8 +13,8 @@
             <asp:Label ID="lblNome" runat="server" Text="Nome"></asp:Label>
         </div>
         <asp:TextBox ID="txtNome" runat="server" placeholder="Inserire Nome"></asp:TextBox>
-        
         <br />
+        <asp:DropDownList ID="cmbCitta" runat="server"></asp:DropDownList>
         <br />
         <asp:Button ID="btnInvia" runat="server" Text="Invia" OnClick="btnInvia_Click" />
         <br />

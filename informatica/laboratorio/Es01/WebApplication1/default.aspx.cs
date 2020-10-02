@@ -11,7 +11,15 @@ namespace WebApplication1
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //vedere roundtrip che ricarica ogni volta cmb
+            //viene richiamato ad ogni caricamento della pagina
+            if (!Page.IsPostBack)
+            {
+                //IsPostBack è boolean FALSE se è la prima volta, TRUE le altre
+                //operazioni svolte soltanto la prima volta che viene richiamata
+                cmbCitta.Items.Add("Cuneo");
+                cmbCitta.Items.Add("Fossano");
+                cmbCitta.Items.Add("Torino");
+            }
         }
 
         protected void btnInvia_Click(object sender, EventArgs e)
@@ -19,7 +27,7 @@ namespace WebApplication1
             if (txtNome.Text == "")
                 lblMessaggio.Text = "Inserire Nome";
             else
-                lblMessaggio.Text = "Ciao "+txtNome.Text;
+                lblMessaggio.Text = "Ciao " + txtNome.Text;
         }
     }
 }
