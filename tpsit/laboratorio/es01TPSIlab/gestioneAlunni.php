@@ -17,7 +17,7 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
 <body>
     <button type="button" class="btn btn-primary" onclick="window.location.href='index.php'" style="float: right;">AREA RISERVATA ALUNNI</button>
     <?php
-    if (isset($_SESSION["autenticatoR"]) && $_SESSION["autenticatoR"] == 1) {
+    if (isset($_SESSION["autenticatoR"]) && $_SESSION["autenticatoR"] == 1) { //controllo su richiamo pagina se autenticato
         if (isset($_GET["elimina"])) {
             $query = "DELETE FROM alunni WHERE idAlunno=" . $_GET["idAlunno"];
             $sth = $pdo->prepare($query);
@@ -28,11 +28,11 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
             $sth = $pdo->prepare($query);
             $sth->execute();
             $classe = $sth->fetchAll();
-            if ($classe == null) {
-                $query = "INSERT INTO classi VALUES (null,'" . $cls . "')";
+            if ($classe == null) { //aggiunta nuova classe in caso non ci fosse nella tabella
+                $query = "INSERT INTO classi VALUES (null,'" . $cls . "')"; //inserimento
                 $sth = $pdo->prepare($query);
                 $sth->execute();
-                $query = "SELECT idClasse FROM classi WHERE classe='" . $cls . "'";
+                $query = "SELECT idClasse FROM classi WHERE classe='" . $cls . "'"; //lettura del codice per l'aggiornamento del record
                 $sth = $pdo->prepare($query);
                 $sth->execute();
                 $classe = $sth->fetchAll();
@@ -42,7 +42,7 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
             $sth = $pdo->prepare($query);
             $sth->execute();
             $citta = $sth->fetchAll();
-            if ($citta == null) {
+            if ($citta == null) { //uguale a classe
                 $query = "INSERT INTO citta VALUES (null,'" . $ct . "')";
                 $sth = $pdo->prepare($query);
                 $sth->execute();
@@ -54,7 +54,7 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
             $query = "UPDATE alunni SET nome='" . $_GET["nome"] . "', cognome='" . $_GET["cognome"] . "', idClasse=" . $classe[0][0] . ", idCitta=" . $citta[0][0] . " WHERE idAlunno=" . $_GET["idAlunno"];
             $sth = $pdo->prepare($query);
             $sth->execute();
-        } else if (isset($_GET["aggiungi"])) {
+        } else if (isset($_GET["aggiungi"])) { //uguale a modifica
             $cls = $_GET["nuovaClasse"];
             $query = "SELECT idClasse FROM classi WHERE classe='" . $cls . "'";
             $sth = $pdo->prepare($query);
@@ -102,6 +102,7 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
             </thead>
             <tbody>
                 <?php
+                //lettura dati per tabella
                 $query = "SELECT a.idAlunno, a.Nome, a.Cognome, ci.nomeCitta, cl.classe FROM alunni a, citta ci, classi cl WHERE a.idCitta=ci.idCitta AND a.idClasse=cl.idClasse";
                 $sth = $pdo->prepare($query);
                 $sth->execute();
@@ -147,32 +148,15 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
                                     }
                                     ?>
                                 </datalist></td>
-                            <td class="table-cell"><button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal">ELIMINA</button>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">ELIMINAZIONE</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                Conferma eliminazione
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
-                                                <button type="submit" class="btn btn-danger" name="elimina">CONFERMA</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                            <td class="table-cell">
+                                <button type="submit" class="btn btn-danger" value="Elimina" name="elimina">ELIMINA</button>
                                 <button type="submit" class="btn btn-success" value="Modifica" name="modifica">MODIFICA</button>
                             </td>
                         </form>
                     </tr>
                 <?php
                 }
+                //riga per aggiunta di un record
                 ?>
                 <tr class="table-row">
                     <td class="table-cell">AGGIUNTA ALUNNO</td>
@@ -184,6 +168,7 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
                         <td class="table-cell"><input type="password" name="password" placeholder="Password"></td>
                         <td class="table-cell">
                             <input type="text" name="nuovaCitta" list="citta" placeholder="Citta">
+                            <!--Questo serve per scrivere dentro la combo box -->
                             <datalist id="citta" name="citta">
                                 <?php
                                 foreach ($citta as $singola) {
@@ -208,9 +193,26 @@ require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
                     </form>
                     </tbdoy>
         </table>
-        <?php
+    <?php
     } else {
-        if (isset($_POST["idOperatore"]) && isset($_POST["password"])) {
+    ?>
+        <div class="mx-auto" style="width: 400px; margin-top: 100px;">
+            <h2>Es 01 tpsi lab LOGIN GESTIONE</h2>
+            <h3>Accesso area riservata gestione</h3>
+            <form action="gestioneAlunni.php" method="post">
+                <div class="form-group">
+                    <label for="idOperatore">Codice operatore</label>
+                    <input type="text" class="form-control" id="idOperatore" name="idOperatore">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" id="password" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Accedi</button>
+            </form>
+        </div>
+        <?php
+        if (isset($_POST["idOperatore"]) && isset($_POST["password"])) { //se non è autenticato mostro il login
             $pwd = md5($_POST["password"]);
             $query = "SELECT * FROM operatori WHERE idOperatore=:idOperatore AND password=:pwd";
             $sth = $pdo->prepare($query);

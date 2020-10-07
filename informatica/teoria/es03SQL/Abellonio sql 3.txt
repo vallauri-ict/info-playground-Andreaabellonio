@@ -237,8 +237,24 @@ WHERE a.CodAttore=r.CodAttore
 AND f.CodFilm=r.CodFilm 
 AND a.Nazionalita='ITA')
 
-34) 
+34) SELECT f.Titolo
+FROM Film f
+WHERE Not exists(SELECT r.CodAttore 
+FROM Recita r 
+WHERE f.CodFilm=r.CodFilm)
 
-35) 
+35) SELECT a.Nome
+FROM Attori a
+WHERE Not exists(SELECT * FROM Film f, Recita r
+WHERE a.CodAttore=r.CodAttore
+AND f.CodFilm=r.CodFilm
+AND f.AnnoProduzione<1960
+AND f.Regista<>'F.Fellini')
 
-36) 
+36) SELECT a.Nome
+FROM Attori a
+WHERE Not exists(SELECT * FROM Film f, Recita r
+WHERE f.CodFilm=r.CodFilm
+AND r.CodAttore=a.CodAttore
+AND f.Regista='F.Fellini'
+AND f.AnnoProduzione>1960)

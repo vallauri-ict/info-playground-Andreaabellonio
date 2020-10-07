@@ -1,0 +1,72 @@
+/*CREAZIONE TABELLE*/
+
+CREATE TABLE Musei(
+NomeM VARCHAR(50) PRIMARY KEY,
+Citta VARCHAR(50)
+)
+
+CREATE TABLE Artisti(
+NomeA VARCHAR(50) PRIMARY KEY,
+Nazionalita VARCHAR(50)
+)
+
+CREATE TABLE Opere(
+Codice INT PRIMARY KEY IDENTITY(1,1),
+Titolo VARCHAR(50),
+NomeM VARCHAR(50) FOREIGN KEY REFERENCES Musei(NomeM),
+NomeA VARCHAR(50) FOREIGN KEY REFERENCES Artisti(NomeA)
+)
+
+CREATE TABLE Personaggi(
+Personaggio VARCHAR(50) PRIMARY KEY,
+Codice INT FOREIGN KEY REFERENCES Opere(Codice)
+)
+
+/*FINE CREAZIONE TABELLE*/
+
+/*QUERY*/
+
+10) SELECT *
+FROM Musei m
+WHERE m.Citta='Ancona'
+AND Not exists(SELECT * FROM Opere o
+WHERE o.NomeM=m.NomeM
+AND o.NomeA<>'Barbero')
+AND Exists(SELECT * FROM Opere o
+WHERE o.NomeM=m.NomeM)
+
+11) SELECT a.NomeA, COUNT(*) as NumeroOpere
+FROM Artisti a, Musei m, Opere o
+WHERE a.NomeA=o.NomeA
+AND o.NomeM=m.NomeM
+AND o.NomeM='Fenice'
+GROUP BY a.NomeA
+
+12) SELECT m.NomeM
+FROM Musei m, Artisti a, Opere o
+WHERE m.NomeM=o.NomeM
+AND a.NomeA=o.NomeA
+AND a.Nazionalita='Italiana'
+GROUP BY m.NomeM
+HAVING COUNT(*)>=2
+
+13) SELECT o.Titolo, o.NomeA
+FROM Opere o, Artisti a
+WHERE o.NomeA=a.NomeA
+AND a.Nazionalita='Italiana'
+AND Not exists(SELECT * FROM Personaggi p 
+WHERE p.Codice=o.Codice)
+
+14) SELECT *
+FROM Musei m
+WHERE m.Citta='Ancona'
+AND Not exists(SELECT * FROM Opere o, Artisti a
+WHERE o.NomeA=a.NomeA
+AND o.NomeM=m.NomeM
+AND a.Nazionalita='Italiana'
+AND a.NomeA <> 'Barbero')
+
+15) SELECT o.NomeM, a.Nazionalita, COUNT(*) as NumeroOpere
+FROM Opere o, Artisti a
+WHERE a.NomeA=o.NomeA
+GROUP BY a.Nazionalita, o.NomeM

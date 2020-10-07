@@ -1,9 +1,9 @@
 <?php
 require "C:\\xampp\htdocs\\es01TPSIlab\dbConnection.php";
 session_start();
-$_SESSION["autenticato"] = 0;
-$_SESSION["idAlunno"] = "";
-$_SESSION["autenticatoR"] = 0;
+$_SESSION["autenticato"] = 0; //variabile session autenticazione alunno
+$_SESSION["idAlunno"] = ""; //id alunno per leggere dati nel portale.php
+$_SESSION["autenticatoR"] = 0; //autenticazione area riservata
 ?>
 <html lang="en">
 
@@ -20,7 +20,7 @@ $_SESSION["autenticatoR"] = 0;
 <body>
     <button type="button" class="btn btn-primary" onclick="window.location.href='gestioneAlunni.php'" style="float: right; margin: 60px">AREA RISERVATA GESTIONE</button>
     <?php
-    if (isset($_POST["idAlunno"]) && isset($_POST["password"])) {
+    if (isset($_POST["idAlunno"]) && isset($_POST["password"])) { //LOGIN
         $pwd = md5($_POST["password"]);
         $query = "SELECT * FROM alunni WHERE idAlunno=:idAlunno AND password=:pwd";
         $sth = $pdo->prepare($query);
@@ -43,7 +43,7 @@ $_SESSION["autenticatoR"] = 0;
     }
     ?>
     <div class="mx-auto" style="width: 400px; margin-top: 100px;">
-        <h2>Es 01 tpsi lab LOGIN</h2>
+        <h2>Es 01 tpsi lab LOGIN ALUNNO</h2>
         <h3>Accesso area riservata alunno</h3>
         <form action="index.php" method="post">
             <div class="form-group">
@@ -55,6 +55,7 @@ $_SESSION["autenticatoR"] = 0;
                 <input type="password" class="form-control" id="password" name="password">
             </div>
             <button type="submit" class="btn btn-primary">Accedi</button>
+            <button type="button" onclick="window.location.href='signup.php'" class="btn btn-primary">REGISTRATI</button>
         </form>
     </div>
 </body>

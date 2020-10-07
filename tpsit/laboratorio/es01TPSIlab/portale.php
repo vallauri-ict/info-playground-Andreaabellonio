@@ -21,6 +21,7 @@ if ($_SESSION["autenticato"] == 1) {
         <h3>Dati studente</h3>
         <br>
         <?php
+        //lettura dati alunno da id alunno in session
         $query = "SELECT a.idAlunno, a.Nome, a.Cognome, ci.nomeCitta, cl.classe FROM alunni a, citta ci, classi cl WHERE a.idAlunno=:idAlunno AND a.idCitta=ci.idCitta AND a.idClasse=cl.idClasse";
         $sth = $pdo->prepare($query);
         $sth->bindParam(':idAlunno', $_SESSION['idAlunno'], PDO::PARAM_STR);
