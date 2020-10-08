@@ -26,6 +26,66 @@ Codice INT FOREIGN KEY REFERENCES Opere(Codice)
 
 /*QUERY*/
 
+1) SELECT o.NomeA, o.Titolo
+FROM Musei m, Opere o
+WHERE m.NomeM=o.NomeM
+AND m.NomeM='Bello'
+AND o.NomeA='Barbero'
+
+2) SELECT o.NomeA, o.Titolo
+FROM Musei m, Opere o
+WHERE m.NomeM=o.NomeM
+AND (m.NomeM='Louvre' OR m.NomeM='Bello')
+
+3) SELECT o.NomeA, o.Titolo
+FROM Musei m, Opere o
+WHERE m.NomeM=o.NomeM
+AND m.Citta='Firenze'
+
+4) SELECT m.Citta
+FROM Musei m, Opere o
+WHERE m.NomeM=o.NomeM
+AND o.NomeA='Caravaggio'
+
+5) SELECT o.Codice, o.Titolo
+FROM Opere o, Musei m
+WHERE m.NomeM=o.NomeM
+AND m.Citta='Londra'
+AND o.NomeA='Barbero'
+
+6) SELECT a.NomeA, o.Titolo
+FROM Opere o, Musei m, Artisti a
+WHERE m.NomeM=o.NomeM
+AND a.NomeA=o.NomeA
+AND m.Citta='Firenze'
+AND a.Nazionalita='Spagnola'
+
+7) SELECT o.Codice, o.Titolo
+FROM Opere o, Personaggi p, Musei m, Artisti a
+WHERE o.Codice=p.Codice
+AND m.NomeM=o.NomeM
+AND a.NomeA=o.NomeA
+AND m.Citta='Londra'
+AND a.Nazionalita='Italiana'
+AND p.Personaggio='Madonna'
+
+8) SELECT m.NomeM, COUNT(*) as NumeroOpere
+FROM Musei m, Artisti a, Opere o
+WHERE m.NomeM=o.NomeM
+AND a.NomeA=o.NomeA
+AND m.Citta='Londra'
+AND a.Nazionalita='Italiana'
+GROUP BY m.NomeM
+
+9) SELECT m.NomeM
+FROM Musei m, Opere o
+WHERE m.NomeM=o.NomeM
+AND m.Citta='Londra'
+AND Not exists(SELECT * FROM Artisti a 
+WHERE a.NomeA=o.NomeA 
+AND m.NomeM=o.NomeM 
+AND o.NomeA='Barbero')
+
 10) SELECT *
 FROM Musei m
 WHERE m.Citta='Ancona'

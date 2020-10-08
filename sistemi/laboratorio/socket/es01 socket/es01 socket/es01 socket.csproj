@@ -46,6 +46,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="clsAddress.cs" />
+    <Compile Include="clsMessaggio.cs" />
+    <Compile Include="clsSocket.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>

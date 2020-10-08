@@ -197,11 +197,28 @@ AND f.Genere='Fantascienza'
 GROUP BY f.CodFilm, f.Titolo
 HAVING MIN(p.DataProiezione)>=CAST('2001-01-01' as DATE) /*la prima data di proiezione deve essere maggiore del 1/1/1*/
 
-27) 
+27) SELECT SUM(p.Incasso) as SommaIncassi, s.Nome
+FROM Sale s, Proiezioni p
+WHERE p.DataProiezione between CAST('2005-01-01' AS DATE) and CAST('2005-01-31' AS DATE)
+AND s.CodSala=p.CodSala
+AND s.Citta='Pisa'
+GROUP BY s.Nome, s.Nome
+HAVING SUM(p.Incasso)>20000
 
-28) 
+28) SELECT f.Titolo
+FROM Film f
+WHERE Not exists (SELECT * FROM Proiezioni p, Sala s
+WHERE s.Città="Pisa"
+AND f.CodFilm=p.CodFilm 
+AND p.CodSala=s.CodSala) 
 
-29) 
+29) SELECT DISTINCT f.Titolo
+FROM Film f, Proiezioni p
+WHERE f.CodFilm=p.CodFilm
+AND Not exists(SELECT * FROM Sale s, Proiezioni p
+WHERE s.CodSala=p.CodSala
+AND f.CodFilm=p.CodFilm
+AND s.Citta<>'Pisa')
 
 30) SELECT f.Titolo 
 FROM Film f 

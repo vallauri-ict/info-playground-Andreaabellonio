@@ -38,13 +38,14 @@
             this.lstIPServer = new System.Windows.Forms.ListBox();
             this.label1 = new System.Windows.Forms.Label();
             this.grpClient = new System.Windows.Forms.GroupBox();
-            this.label4 = new System.Windows.Forms.Label();
-            this.txtIPHostRemoto = new System.Windows.Forms.TextBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.txtMessaggioDaInviare = new System.Windows.Forms.TextBox();
-            this.btnInvia = new System.Windows.Forms.Button();
             this.cmbPortaHostRemoto = new System.Windows.Forms.ComboBox();
+            this.btnInvia = new System.Windows.Forms.Button();
+            this.txtMessaggioDaInviare = new System.Windows.Forms.TextBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.txtIPHostRemoto = new System.Windows.Forms.TextBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblStatoServer = new System.Windows.Forms.Label();
             this.grpServer.SuspendLayout();
             this.grpClient.SuspendLayout();
             this.SuspendLayout();
@@ -52,6 +53,7 @@
             // grpServer
             // 
             this.grpServer.BackColor = System.Drawing.SystemColors.ControlDark;
+            this.grpServer.Controls.Add(this.lblStatoServer);
             this.grpServer.Controls.Add(this.txtMessaggioRicevuto);
             this.grpServer.Controls.Add(this.label3);
             this.grpServer.Controls.Add(this.cmbPortaServer);
@@ -97,6 +99,7 @@
             this.cmbPortaServer.Name = "cmbPortaServer";
             this.cmbPortaServer.Size = new System.Drawing.Size(121, 24);
             this.cmbPortaServer.TabIndex = 6;
+            this.cmbPortaServer.SelectedIndexChanged += new System.EventHandler(this.cmbPortaServer_SelectedIndexChanged);
             // 
             // btnArrestaServer
             // 
@@ -107,6 +110,7 @@
             this.btnArrestaServer.TabIndex = 5;
             this.btnArrestaServer.Text = " ARRESTA SERVER";
             this.btnArrestaServer.UseVisualStyleBackColor = true;
+            this.btnArrestaServer.Click += new System.EventHandler(this.btnArrestaServer_Click);
             // 
             // btnAvviaServer
             // 
@@ -117,6 +121,7 @@
             this.btnAvviaServer.TabIndex = 4;
             this.btnAvviaServer.Text = "AVVIA SERVER";
             this.btnAvviaServer.UseVisualStyleBackColor = true;
+            this.btnAvviaServer.Click += new System.EventHandler(this.btnAvviaServer_Click);
             // 
             // label2
             // 
@@ -135,6 +140,7 @@
             this.lstIPServer.Name = "lstIPServer";
             this.lstIPServer.Size = new System.Drawing.Size(140, 132);
             this.lstIPServer.TabIndex = 1;
+            this.lstIPServer.SelectedIndexChanged += new System.EventHandler(this.lstIPServer_SelectedIndexChanged);
             // 
             // label1
             // 
@@ -162,57 +168,6 @@
             this.grpClient.TabStop = false;
             this.grpClient.Text = "Client";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(44, 46);
-            this.label4.Name = "label4";
-            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.label4.Size = new System.Drawing.Size(103, 17);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "IP host remoto:";
-            // 
-            // txtIPHostRemoto
-            // 
-            this.txtIPHostRemoto.Location = new System.Drawing.Point(178, 41);
-            this.txtIPHostRemoto.Name = "txtIPHostRemoto";
-            this.txtIPHostRemoto.Size = new System.Drawing.Size(140, 22);
-            this.txtIPHostRemoto.TabIndex = 1;
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(47, 84);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(125, 17);
-            this.label5.TabIndex = 2;
-            this.label5.Text = "Porta host remoto:";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(234, 150);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(146, 17);
-            this.label6.TabIndex = 4;
-            this.label6.Text = "Messaggio da inviare:";
-            // 
-            // txtMessaggioDaInviare
-            // 
-            this.txtMessaggioDaInviare.Location = new System.Drawing.Point(159, 181);
-            this.txtMessaggioDaInviare.Name = "txtMessaggioDaInviare";
-            this.txtMessaggioDaInviare.Size = new System.Drawing.Size(313, 22);
-            this.txtMessaggioDaInviare.TabIndex = 5;
-            // 
-            // btnInvia
-            // 
-            this.btnInvia.Location = new System.Drawing.Point(211, 222);
-            this.btnInvia.Name = "btnInvia";
-            this.btnInvia.Size = new System.Drawing.Size(186, 23);
-            this.btnInvia.TabIndex = 6;
-            this.btnInvia.Text = "Invia";
-            this.btnInvia.UseVisualStyleBackColor = true;
-            // 
             // cmbPortaHostRemoto
             // 
             this.cmbPortaHostRemoto.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -227,6 +182,68 @@
             this.cmbPortaHostRemoto.Size = new System.Drawing.Size(140, 24);
             this.cmbPortaHostRemoto.TabIndex = 7;
             // 
+            // btnInvia
+            // 
+            this.btnInvia.Enabled = false;
+            this.btnInvia.Location = new System.Drawing.Point(211, 222);
+            this.btnInvia.Name = "btnInvia";
+            this.btnInvia.Size = new System.Drawing.Size(186, 23);
+            this.btnInvia.TabIndex = 6;
+            this.btnInvia.Text = "Invia";
+            this.btnInvia.UseVisualStyleBackColor = true;
+            this.btnInvia.Click += new System.EventHandler(this.btnInvia_Click);
+            // 
+            // txtMessaggioDaInviare
+            // 
+            this.txtMessaggioDaInviare.Location = new System.Drawing.Point(159, 181);
+            this.txtMessaggioDaInviare.Name = "txtMessaggioDaInviare";
+            this.txtMessaggioDaInviare.Size = new System.Drawing.Size(313, 22);
+            this.txtMessaggioDaInviare.TabIndex = 5;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(234, 150);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(146, 17);
+            this.label6.TabIndex = 4;
+            this.label6.Text = "Messaggio da inviare:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(47, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(125, 17);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Porta host remoto:";
+            // 
+            // txtIPHostRemoto
+            // 
+            this.txtIPHostRemoto.Location = new System.Drawing.Point(178, 41);
+            this.txtIPHostRemoto.Name = "txtIPHostRemoto";
+            this.txtIPHostRemoto.Size = new System.Drawing.Size(140, 22);
+            this.txtIPHostRemoto.TabIndex = 1;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(47, 44);
+            this.label4.Name = "label4";
+            this.label4.RightToLeft = System.Windows.Forms.RightToLeft.No;
+            this.label4.Size = new System.Drawing.Size(103, 17);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "IP host remoto:";
+            // 
+            // lblStatoServer
+            // 
+            this.lblStatoServer.AutoSize = true;
+            this.lblStatoServer.Location = new System.Drawing.Point(104, 18);
+            this.lblStatoServer.Name = "lblStatoServer";
+            this.lblStatoServer.Size = new System.Drawing.Size(74, 17);
+            this.lblStatoServer.TabIndex = 9;
+            this.lblStatoServer.Text = "STOPPED";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -236,7 +253,9 @@
             this.Controls.Add(this.grpServer);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Socket es01";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.grpServer.ResumeLayout(false);
             this.grpServer.PerformLayout();
             this.grpClient.ResumeLayout(false);
@@ -264,6 +283,7 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.TextBox txtIPHostRemoto;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblStatoServer;
     }
 }
 
