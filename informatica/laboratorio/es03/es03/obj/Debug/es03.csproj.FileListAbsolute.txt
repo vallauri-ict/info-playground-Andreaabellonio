@@ -1,0 +1,7 @@
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\bin\es03.dll.config
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\bin\es03.dll
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\bin\es03.pdb
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\obj\Debug\es03.csprojAssemblyReference.cache
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\obj\Debug\es03.csproj.CoreCompileInputs.cache
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\obj\Debug\es03.dll
+C:\Users\andre\Desktop\5Quinta\informatica\laboratorio\es03\es03\obj\Debug\es03.pdb
