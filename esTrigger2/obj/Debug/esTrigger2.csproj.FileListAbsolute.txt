@@ -1,0 +1,10 @@
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\bin\Debug\esTrigger2.exe.config
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\bin\Debug\esTrigger2.exe
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\bin\Debug\esTrigger2.pdb
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.csprojAssemblyReference.cache
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.frmTrigger.resources
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.Properties.Resources.resources
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.csproj.GenerateResource.cache
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.csproj.CoreCompileInputs.cache
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.exe
+C:\Users\andre\Desktop\scuola\5Quinta\informatica\teoria\esTrigger2\esTrigger2\obj\Debug\esTrigger2.pdb
